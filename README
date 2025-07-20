@@ -1,0 +1,76 @@
+AI Job Tracker
+An intelligent browser extension designed to automate and streamline the job application tracking process. This tool allows users to save job postings from any website with a single click, using AI to automatically parse and store key details, eliminating the need for manual data entry into spreadsheets.
+
+Key Features
+One-Click Tracking: A simple browser extension to capture job application details directly from the job posting page.
+
+AI-Powered Data Extraction: Leverages the Google Gemini API to intelligently parse unstructured text from webpages and extract structured data like company name, job title, and location.
+
+Advanced Web Scraping: Utilizes a headless browser engine to accurately render and scrape content from complex, JavaScript-heavy job portals.
+
+Cloud Database Storage: Securely saves all tracked job applications to a central Cloud Firestore database for persistent storage.
+
+Serverless Architecture: Built on a highly scalable, cost-effective serverless backend using Firebase Cloud Functions, requiring zero server management.
+
+Web Dashboard (In Development): A React-based web application to view, filter, and manage all tracked jobs in a centralized dashboard.
+
+Tech Stack
+Frontend - JavaScript, HTML5, CSS3, Chrome Extension API
+
+Backend - Node.js, Firebase Cloud Functions
+
+Database - Cloud Firestore (NoSQL)
+
+AI - Google Gemini API
+
+Scraping - Puppeteer (Headless Chrome)
+
+Hosting - Firebase Hosting (for the web dashboard)
+
+Tools - Git, VS Code, Firebase CLI, Google Cloud Console
+
+Architecture
+This application is built on a modern, event-driven, serverless architecture.
+
+Ingestion: The user initiates the process by clicking the "Track this Job" button in the Browser Extension.
+
+Trigger: The extension sends the active tab's URL to a dedicated Firebase Cloud Function endpoint.
+
+Processing:
+
+The Cloud Function uses a headless browser (Puppeteer) to scrape the full, rendered text content from the provided URL.
+
+This unstructured text is sent to the Google Gemini API.
+
+The AI processes the text and returns a structured JSON object containing the job details.
+
+Storage: The Cloud Function saves this structured JSON data as a new document in the Cloud Firestore database.
+
+Visualization (Dashboard): A separate React web application hosted on Firebase Hosting reads directly from the Firestore database to display all the tracked jobs to the user.
+
+Project Setup
+This project is a "monorepo" containing two main packages: backend and frontend.
+
+Backend Setup (backend folder)
+Navigate to the backend directory: cd backend
+
+Install dependencies: npm install
+
+Set up Firebase secrets for your API keys:
+
+firebase functions:secrets:set GEMINI_API_KEY
+# If using an external scraping service:
+# firebase functions:secrets:set SCRAPINGBEE_API_KEY
+
+Deploy the function: firebase deploy --only functions
+
+Frontend Setup (frontend folder)
+Open Google Chrome and navigate to chrome://extensions.
+
+Enable "Developer mode" in the top-right corner.
+
+Click "Load unpacked".
+
+Select the frontend (or job-tracker-extension) folder.
+
+Ensure the Cloud Function URL in popup.js is updated to point to your deployed backend function.
