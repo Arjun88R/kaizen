@@ -7,7 +7,7 @@
     "activeTab"
   ],
   "host_permissions": [
-    "https://*.a.run.app"
+    "https://*.a.run.app/"
   ],
   "action": {
     "default_popup": "popup.html",

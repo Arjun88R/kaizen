@@ -1,17 +1,200 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>AI Job Tracker</title>
+<head>
+    <title>kaizen</title>
     <style>
-      body { width: 250px; font-family: sans-serif; text-align: center; }
-      button { width: 80%; padding: 10px; font-size: 16px; margin-bottom: 10px; }
-      #statusMessage { min-height: 20px; font-weight: bold; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 350px;
+            height: 350px;
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #000;
+            position: relative;
+        }
+
+        .container {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .logo-container {
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 0 30px 30px 0px;
+            padding: 8px 16px;
+            display: inline-block
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 3px solid #000;
+            width: 140px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* 3D shadow effect */
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: -1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .track-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        #trackJobBtn {
+            background: #fff;
+            border: 3px solid #000;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #000;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        /* 3D shadow effect for button */
+        #trackJobBtn::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: -1;
+            transition: all 0.2s ease;
+        }
+
+        #trackJobBtn:hover {
+            background: rgb(245, 255, 104);
+        }
+
+        #trackJobBtn:hover::after {
+            background: rgb(0, 0, 0);
+        }
+
+        #trackJobBtn:active {
+            transform: translate(4px, 4px);
+        }
+
+        #trackJobBtn:active::after {
+            transform: translate(-4px, -4px);
+        }
+
+        #statusMessage {
+            min-height: 20px;
+            font-weight: bold;
+            color: #000;
+            font-size: 14px;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* Hide elements that aren't in the design */
+        .title, .subtitle {
+            display: none;
+        }
+
     </style>
-  </head>
-  <body>
-    <h1></h1>
-    <button id="trackJobBtn">Track this Job</button>
-    <p id="statusMessage"></p>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <span class="logo-text">kaizen</span>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-label">jobs applied<br>today</div>
+                <div class="stat-number" id="todayJobs">7</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">jobs applied<br>in total</div>
+                <div class="stat-number" id="totalJobs">24</div>
+            </div>
+        </div>
+        <div class="track-button-container">
+            <button id="trackJobBtn">Track Application</button>
+        </div>
+
+        <p id="statusMessage"></p>
+    </div>
+
     <script src="popup.js"></script>
-  </body>
+    <script>
+        // Add some interactivity to match the design
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackBtn = document.getElementById('trackJobBtn');
+            
+            // Add click animation to stats
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translate(3px, 3px)';
+                    setTimeout(() => {
+                        this.style.transform = 'translate(0, 0)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
 </html>
